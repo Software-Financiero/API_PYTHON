@@ -5,7 +5,7 @@ class Config():
 
 class DevelopementConfig(Config):
   DEBUG = True
-
+  
 config = {
   'developement': DevelopementConfig
 }
