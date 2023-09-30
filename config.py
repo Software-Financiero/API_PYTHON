@@ -1,11 +1,11 @@
 from decouple import config
 
 class Config():
-  SECRET_KEY = config('SECRET_KEY')
+    SECRET_KEY = config('SECRET_KEY')
 
 class DevelopementConfig(Config):
   DEBUG = True
   
 config = {
-  'developement': DevelopementConfig
+    'development': DevelopementConfig
 }
