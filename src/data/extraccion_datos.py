@@ -55,8 +55,10 @@ def extraccion_desempleo_excel(ruta):
     xls = xls.dropna(axis=1, how='any')
     selected_columns = xls[[0, 1, 11]]
     selected_columns.columns = ["Ano", "Mes", "Tasa"]
+    selected_columns = selected_columns[selected_columns["Ano"] >= 2014]
     desempleo_dict = selected_columns.to_dict(orient='records')
     data_json = json.dumps(desempleo_dict)
+    print(data_json)
     return data_json
     
 def extraccion_deuda_excel(ruta):
