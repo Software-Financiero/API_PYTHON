@@ -3,7 +3,7 @@ from src.controllers.indicadores import getPIB, getDesempleo, getDeudaPublica, g
 
 bp = Blueprint("routes", __name__)
 
-path = '/api/indicadores'
+path = '/prediccion/indicadores'
 
 @bp.get(f"{path}/PIB")
 def list_PIB():

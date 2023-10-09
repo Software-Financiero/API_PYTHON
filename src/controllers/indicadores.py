@@ -7,6 +7,7 @@ def getDesempleo():
   return 'list desempleo'
 
 def getDeudaPublica():
+  
   return 'list deuda publica'
 
 def getIED():
