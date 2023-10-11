@@ -7,7 +7,7 @@ def GetDesempleo():
   return 'Lista Desempleo'
 
 def SaveDesempleo():
-  excel_file = request.files['excel']
+  excel_file = request.data
 
   xls = pd.read_excel(excel_file, sheet_name="DESEMPLEO", header=None, skiprows=2)
   xls[11] = xls[11].round(2)

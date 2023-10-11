@@ -7,7 +7,7 @@ def GetInflacion():
   return 'Lista Inflacion'
 
 def SaveInflacion():
-  excel_file = request.files['excel']
+  excel_file = request.data
 
   meses = {
       1: "Ene",

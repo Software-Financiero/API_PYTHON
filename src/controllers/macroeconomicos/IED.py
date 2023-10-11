@@ -7,7 +7,7 @@ def GetIED():
   return 'Lista IED'
 
 def SaveIED():
-  excel_file = request.files['excel']
+  excel_file = request.data
 
   xls = pd.read_excel(excel_file, sheet_name="IED", header=None, skiprows=2)
   xls[["Ano", "Trimestre"]] = xls[0].str.split('-', expand=True)

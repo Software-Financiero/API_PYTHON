@@ -7,7 +7,7 @@ def GetDeuda():
   return 'Lista Deuda'
 
 def SaveDeuda():
-  excel_file = request.files['excel']
+  excel_file = request.data
 
   meses = {
         1: "Ene",
