@@ -7,7 +7,7 @@ def GetPIB():
   return 'Lista PIB'
 
 def SavePIB():
-  excel_file = request.files['excel']
+  excel_file = request.data
 
   xls = pd.read_excel(excel_file, sheet_name="PIB", header=None, skiprows=2, names=["Periodo", "PIB", "FormaciónBrutaCapital", "Exportaciones", "Importaciones"])
   trimestre_mapping = {"I": 1, "II": 2, "III": 3, "IV": 4}
