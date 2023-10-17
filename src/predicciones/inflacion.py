@@ -34,7 +34,7 @@ test_data = df[train_size:]
 test=test_data.copy()
 
 # Ajustar modelo auto-arima MODELO 
-arima_model= sm.tsa.SARIMAX(train_data["Porcentaje"], order=(1,1,1), seasonal_order=(2,0,0,12)).fit()
+arima_model= sm.tsa.ARIMA(train_data["Porcentaje"], order=(1,1,1), seasonal_order=(2,0,0,12)).fit()
 predictions = arima_model.predict(start="2020-01-01", end="2024-01-01", typ="levels").rename("Arima Predicciones_2024")
 
 meses_dict = {
@@ -56,7 +56,6 @@ predictions_df = pd.DataFrame({'Fecha': predictions.index, 'Porcentaje': predict
 predictions_df['Porcentaje'] = predictions_df['Porcentaje'].round(1)
 predictions_df['Ano'] = predictions_df['Fecha'].dt.year
 predictions_df['Mes'] = predictions_df['Fecha'].dt.month.map(meses_dict)
-predictions_df['Dia'] = predictions_df['Fecha'].dt.day
-xls_inflacion = predictions_df[["Ano", "Mes", "Dia", 'Porcentaje']]
+xls_inflacion = predictions_df[["Ano", "Mes",'Porcentaje']]
 inflacion_dict = xls_inflacion.to_dict(orient="records")
 data_json = json.dumps(inflacion_dict)

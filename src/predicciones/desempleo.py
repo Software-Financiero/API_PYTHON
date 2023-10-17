@@ -35,7 +35,7 @@ test=test_data.copy()
 
 #MEJOR MODELO . MODELO 2 CON (0,1,4)(1,0,1,12)
 #En END va la fecha 
-arima_model= sm.tsa.SARIMAX(train_data["Tasa"], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
+arima_model= sm.tsa.ARIMA(train_data["Tasa"], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
 predictions = arima_model.predict(start="2020-01-01", end="2024-01-01", typ="levels").rename("Arima Predicciones_2024")
 
 
@@ -59,9 +59,8 @@ meses_dict = {
 predictions_df = pd.DataFrame({'Fecha': predictions.index, 'Tasa': predictions})
 predictions_df['Tasa'] = predictions_df['Tasa'].round(1)
 predictions_df['Ano'] = predictions_df['Fecha'].dt.year
-predictions_df['Mes'] = predictions_df['Fecha'].dt.month.map(meses_dict)  # Mapea el número de mes al nombre de mes
-predictions_df['Dia'] = predictions_df['Fecha'].dt.day
-xls_desempleo = predictions_df[["Ano", "Mes", "Dia", 'Tasa']]
+predictions_df['Mes'] = predictions_df['Fecha'].dt.month.map(meses_dict)  
+xls_desempleo = predictions_df[["Ano", "Mes",  'Tasa']]
 desempleo_dict = xls_desempleo.to_dict(orient="records")
 data_json = json.dumps(desempleo_dict)
 

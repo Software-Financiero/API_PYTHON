@@ -52,7 +52,7 @@ train_data = df[:train_size]
 test_data = df[train_size:]
 test=test_data.copy()
 
-arima_model= sm.tsa.SARIMAX(train_data["PIB"], order=(0,1,0), seasonal_order=(0,0,0,4)).fit()
+arima_model= sm.tsa.ARIMA(train_data["PIB"], order=(0,1,0), seasonal_order=(0,0,0,4)).fit()
 predictions = arima_model.predict(start="2020-01-01", end="2024-04-01", typ="levels").rename("Arima Predicciones_2024")
 predictions_df = pd.DataFrame({'Ano': predictions.index.year, 'Trimestre': predictions.index.quarter,'PIB': predictions})
 deuda_dict = predictions_df .to_dict(orient="records")
