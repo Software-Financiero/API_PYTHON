@@ -8,7 +8,7 @@ bp = Blueprint("inflacion_routes", __name__)
 path = '/indicadores/inflacion'
 
 def last_day_of_month(last_date):
-    next_month = last_date.replace(day=28) + datetime.timedelta(days=4)
+    next_month = last_date.replace(day=28) + datetime.timedelta(days=3)
     return next_month - datetime.timedelta(days=next_month.day)
 
 @bp.get(f"{path}")
@@ -26,4 +26,5 @@ def pre_inflacion():
   new_date = datetime.date(int(response['year']),int(response['month']),int(response['day']))
   last_date = last_day_of_month(new_date)
   date = last_date.strftime('%Y-%m-%d')
+  print(date)
   return prediccion_inflacion(date)

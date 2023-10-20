@@ -8,7 +8,7 @@ bp = Blueprint("desempleo_routes", __name__)
 path = '/indicadores/desempleo'
 
 def last_day_of_month(last_date):
-    next_month = last_date.replace(day=28) + datetime.timedelta(days=4)
+    next_month = last_date.replace(day=28) + datetime.timedelta(days=3)
     return next_month - datetime.timedelta(days=next_month.day)
 
 @bp.get(f"{path}/")
