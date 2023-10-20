@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 
 def prediccion_inflacion(date):
     response = ''
-    if date > '2025-01-01':
+    if date > '2027-01-01':
         response = {"MSG": "Fecha invalida"}
     else:
 # Descargar los datos

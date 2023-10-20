@@ -21,7 +21,7 @@ warnings.filterwarnings("ignore")
 
 def prediccion_pib(date):
 	response = ''
-	if date > '2024-Q4':
+	if date > '2027-Q1':
 		response = {"MSG": "Fecha invalida"}
 	else:
 # Descargar los datos del API
