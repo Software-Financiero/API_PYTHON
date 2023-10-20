@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from src.controllers.macroeconomicos.PIB import GetPIB, SavePIB 
 from src.controllers.predicciones.pib import prediccion_pib 
 
@@ -15,6 +15,7 @@ def list_PIB():
 def PostPIB():
   return SavePIB()
 
-@bp.get(f"{path}/prediccion")
+@bp.post(f"{path}/prediccion")
 def pre_PIB():
-  return prediccion_pib()
+  date = request.get_json()['date']
+  return prediccion_pib(date)

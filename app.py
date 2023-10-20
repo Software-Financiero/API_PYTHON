@@ -1,6 +1,7 @@
 from config import config
 from src import init_app
 from src.routes.macroeconomicos import PIB, IED, deuda, desempleo, inflacion
+from src.routes.microeconomicos import moneda
 from flask_cors import CORS
 
 configuration = config['development']  
@@ -16,7 +17,7 @@ app.register_blueprint(IED.bp)
 app.register_blueprint(inflacion.bp)
 app.register_blueprint(desempleo.bp)
 app.register_blueprint(deuda.bp)
-
+app.register_blueprint(moneda.bp)
 
 if __name__ == '__main__':
     app.run()
