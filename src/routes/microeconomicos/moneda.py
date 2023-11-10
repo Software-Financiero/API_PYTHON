@@ -15,11 +15,10 @@ def h_moneda():
   download_initial_data()
   return get_historical_data()
 
-@bp.post(f"{path}/convert")
-def C_moneda():
+@bp.post(f"{path}/convert/<coin>")
+def C_moneda(coin):
   amount = request.get_json()['amount']
-  print(amount)
-  return convertMoney(amount)
+  return convertMoney(coin,amount)
 
 @bp.get(f"{path}/prediccion")
 def prediccion_moneda():

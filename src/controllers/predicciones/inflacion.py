@@ -38,6 +38,7 @@ def prediccion_inflacion(date):
         test_data = df[train_size:]
         test=test_data.copy()
 
+
 # Ajustar modelo auto-arima MODELO 
         arima_model= sm.tsa.ARIMA(train_data["Porcentaje"], order=(1,1,1), seasonal_order=(2,0,0,12)).fit()
         predictions = arima_model.predict(start="2020-01-01", end=date, typ="levels").rename("Arima Predicciones_2024")

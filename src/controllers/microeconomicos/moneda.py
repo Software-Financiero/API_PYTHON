@@ -25,12 +25,12 @@ def getMonedaLive():
 
         return data
 
-def convertMoney(amount):
+def convertMoney(coin, amount):
 
     access_key = config('API_KEY_M')
 
     # Hacemos la peticion a la api que nos proporcionara la informacion.
-    url = f"http://api.currencylayer.com/convert?access_key={access_key}&from=USD&to=COP&amount={amount}"
+    url = f"http://api.currencylayer.com/convert?access_key={access_key}&from={coin}&to=COP&amount={amount}"
     response = requests.get(url)
 
     data = response.json()
