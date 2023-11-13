@@ -1,6 +1,6 @@
 from decouple import config
 from flask import jsonify
-import requests
+import requests, json 
 
 def market_list():
 
@@ -15,7 +15,7 @@ def market_list():
 
 def stock_historical(symbol):
 
-  access_key = config('API_KEY_A')
+  access_key = config('API_KEY_A1')
 
   url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={access_key}"
 
@@ -38,10 +38,10 @@ def stock_historical(symbol):
 
   # Convertir el diccionario filtrado de nuevo a JSON
   filtered_json = json.dumps(filtered_data, indent=2)
-
+  
   return filtered_json
 
-def stock_data(symbol):
+def stock_data(symbol):  
   symbol_to_find = symbol
   combined_info = {}
   symbol_info = None

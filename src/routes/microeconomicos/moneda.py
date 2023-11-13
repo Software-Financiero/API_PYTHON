@@ -20,6 +20,6 @@ def C_moneda(coin):
   amount = request.get_json()['amount']
   return convertMoney(coin,amount)
 
-@bp.get(f"{path}/prediccion")
-def prediccion_moneda():
-  return predicciones_moneda()
+@bp.get(f"{path}/prediccion/<days>")
+def prediccion_moneda(days):
+  return predicciones_moneda(days)

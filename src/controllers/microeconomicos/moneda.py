@@ -4,7 +4,7 @@ import requests, datetime, time, json
 historical_data = []  # Lista para almacenar los datos históricos
 
 def getMonedaLive():
-        access_key = config('API_KEY_M')
+        access_key = config('API_KEY_M2')
         currencies = 'COP'
 
         # Hacemos la petición a la API que nos proporcionará la información.
@@ -27,7 +27,7 @@ def getMonedaLive():
 
 def convertMoney(coin, amount):
 
-    access_key = config('API_KEY_M')
+    access_key = config('API_KEY_M2')
 
     # Hacemos la peticion a la api que nos proporcionara la informacion.
     url = f"http://api.currencylayer.com/convert?access_key={access_key}&from={coin}&to=COP&amount={amount}"
@@ -64,7 +64,7 @@ def update_data():
 
 def get_historical_data():
     
-    fecha_limite = datetime.datetime(2020, 1, 1)
+    fecha_limite = datetime.datetime(2022, 1, 1)
 
     datos_desde_2020 = [item for item in historical_data if datetime.datetime.fromisoformat(item["vigenciadesde"]) >= fecha_limite]
 
