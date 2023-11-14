@@ -4,12 +4,15 @@ import requests, json
 
 def market_list():
 
-  access_key = config('API_KEY_A')
+  access_key = config('API_KEY_A1')
 
   url = f"https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={access_key}"
 
   response = requests.get(url)
   data = response.json()
+
+  if not data:
+        return jsonify({'msg': 'Dia no bursatil'})
 
   return data
 
@@ -46,7 +49,7 @@ def stock_data(symbol):
   combined_info = {}
   symbol_info = None
 
-  access_key = config('API_KEY_A')
+  access_key = config('API_KEY_A2')
 
   url_info = f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={symbol}&apikey={access_key}"
   
