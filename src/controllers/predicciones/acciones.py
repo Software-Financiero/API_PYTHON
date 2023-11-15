@@ -10,7 +10,8 @@ from flask import jsonify
 def predicciones_acciones(symbol):
     # Cargar tus datos históricos en un DataFrame de Pandas
     acciones_data = stock_historical(symbol)
-    monthly_data = acciones_data["Monthly Time Series"]
+    acciones_dict = json.loads(acciones_data)
+    monthly_data = acciones_dict["Monthly Time Series"]
     df = pd.DataFrame(monthly_data).transpose()
 
     # Convertir índice a tipo de dato datetime
@@ -30,21 +31,20 @@ def predicciones_acciones(symbol):
     model_fit = model.fit()
     n_steps = 5
     forecast = model_fit.forecast(steps=n_steps)
-    pred_dates = pd.date_range(start=df.index[-1], periods=n_steps)
-    predictions_dict = {'fechas': pred_dates.strftime('%Y-%m-%d').tolist(), 'predicciones': forecast.tolist()}
-    print(predictions_dict)
+    pred_dates = pd.date_range(start=df.index[-1] + pd.DateOffset(1), periods=n_steps)
+    predictions_dict = {'fecha': pred_dates.strftime('%Y-%m-%d').tolist(), 'predicciones': forecast.tolist()}
 
     # predicciones
     train_size = int(len(df) * 1.00)
     train_data = df[:train_size]
     test_data = df[train_size:]
-    end_date = train_data.iloc[-3]
+    end_date = train_data.index[-1]
     start_date = train_data.index[1]
     arima_model= sm.tsa.ARIMA(train_data['4. close'], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
     predictions = arima_model.predict(start=start_date, end=end_date, typ="levels")
 
     result_dict = {
-        'fechas': predictions.index.strftime('%Y-%m-%d').tolist(),
+        'fecha': predictions.index.strftime('%Y-%m-%d').tolist(),
         'predicciones': predictions.tolist(),
     }
 
@@ -52,6 +52,8 @@ def predicciones_acciones(symbol):
     for key in result_dict:
         result_dict[key] += predictions_dict[key]
 
-    result_json = json.dumps(result_dict)
+    # Combina las listas correspondientes usando zip
+    result_list = [{"fecha": date, "valor": value} for date, value in zip(result_dict['fecha'], result_dict['predicciones'])]
+    result_json = json.dumps(result_list)
     
     return result_json 
