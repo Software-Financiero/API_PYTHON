@@ -21,13 +21,13 @@ def predicciones_acciones(symbol):
     df = df.sort_index()
 
     # Convertir la columna '4. close' a tipo de dato numérico
-    df['4. close'] = pd.to_numeric(df['4. close'], errors='coerce')
+    df['close'] = pd.to_numeric(df['close'], errors='coerce')
 
     # Rellenar valores nulos en '4. close' con 0
-    df['4. close'].fillna(0, inplace=True)
+    df['close'].fillna(0, inplace=True)
 
     # predicciones futuras
-    model = ARIMA(df['4. close'], order=(1, 4, 2))
+    model = ARIMA(df['close'], order=(1, 4, 2))
     model_fit = model.fit()
     n_steps = 5
     forecast = model_fit.forecast(steps=n_steps)
@@ -40,7 +40,7 @@ def predicciones_acciones(symbol):
     test_data = df[train_size:]
     end_date = train_data.index[-1]
     start_date = train_data.index[1]
-    arima_model= sm.tsa.ARIMA(train_data['4. close'], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
+    arima_model= sm.tsa.ARIMA(train_data['close'], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
     predictions = arima_model.predict(start=start_date, end=end_date, typ="levels")
 
     result_dict = {

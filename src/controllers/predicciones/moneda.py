@@ -52,37 +52,3 @@ def predicciones_moneda(days):
     
     return result_json 
 
-
-def predicciones_moneda2():
-    url = "https://tamworth-swift-parrot-msbt.2.us-1.fl0.io/api/v1/moneda/datos"
-    response = requests.get(url)
-    moneda_data = response.json()
-
-    df = pd.DataFrame(moneda_data)
-    df['vigenciadesde'] = pd.to_datetime(df['vigenciadesde'])
-    df.set_index('vigenciadesde', inplace=True)
-    df = df.sort_values('vigenciadesde')
-
-    df['valor'] = pd.to_numeric(df['valor'], errors='coerce')
-    df['valor'].fillna(0, inplace=True)
-
-    train_size = int(len(df) * 1.00)
-    train_data = df[:train_size]
-    test_data = df[train_size:]
-    test=test_data.copy()
-
-    end_date = train_data.index[-1] 
-
-
-    arima_model= sm.tsa.ARIMA(train_data['valor'], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
-    predictions = arima_model.predict(start="2020-02-01", end=end_date, typ="levels")
-
-    plt.plot(df.index, df['valor'], label='Datos Originales', color='blue')
-
-    # Graficar las predicciones
-    plt.plot(predictions, label='Predicciones', color='red')
-    plt.title('Predicciones ARIMA')
-    plt.xlabel('Fecha')
-    plt.ylabel('Valor')
-    plt.legend()
-    plt.show() 

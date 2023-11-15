@@ -16,6 +16,9 @@ def market_list():
 
   return data
 
+def remove_numbers_and_spaces(d):
+  return {key.replace(key.split('.')[0] + '.', '').strip(): value for key, value in d.items()}
+
 def stock_historical(symbol):
 
   access_key = config('API_KEY_A1')
@@ -33,11 +36,13 @@ def stock_historical(symbol):
       "Monthly Time Series": {}
   }
 
+
   # Recorrer los datos mensuales y agregar solo aquellos a partir del año 2000
   for date, values in data["Monthly Time Series"].items():
       year = int(date.split('-')[0])
       if year >= start_year:
-          filtered_data["Monthly Time Series"][date] = values
+          filtered_data["Monthly Time Series"][date] = remove_numbers_and_spaces(values)
+
 
   # Convertir el diccionario filtrado de nuevo a JSON
   filtered_json = json.dumps(filtered_data, indent=2)
