@@ -38,7 +38,7 @@ def predicciones_acciones(symbol):
     train_size = int(len(df) * 1.00)
     train_data = df[:train_size]
     test_data = df[train_size:]
-    end_date = train_data.index[-1] 
+    end_date = train_data.iloc[-3]
     start_date = train_data.index[1]
     arima_model= sm.tsa.ARIMA(train_data['4. close'], order=(0,1,4), seasonal_order=(1,0,1,12)).fit()
     predictions = arima_model.predict(start=start_date, end=end_date, typ="levels")

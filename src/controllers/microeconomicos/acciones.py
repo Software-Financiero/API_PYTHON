@@ -4,7 +4,7 @@ import requests, json
 
 def market_list():
 
-  access_key = config('API_KEY_A1')
+  access_key = config('API_KEY_A4')
 
   url = f"https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={access_key}"
 
@@ -55,8 +55,9 @@ def stock_data(symbol):
   
   response_info = requests.get(url_info)
   data_info = response_info.json()
-
-  url_quotes = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={access_key}"
+  
+  access_key2 = config('API_KEY_A3')
+  url_quotes = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={access_key2}"
 
   response_quotes = requests.get(url_quotes)
   data_quotes = response_quotes.json()

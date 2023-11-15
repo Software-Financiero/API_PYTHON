@@ -26,11 +26,11 @@ def predicciones_moneda(days):
     steps = int(days)
     n_steps = steps
     forecast = model_fit.forecast(steps=n_steps)
-    pred_dates = pd.date_range(start=df.index[-1], periods=n_steps)
+    pred_dates = pd.date_range(start=df.index[-1] + pd.DateOffset(1), periods=n_steps)
     predictions_dict = {'fechas': pred_dates.strftime('%Y-%m-%d').tolist(), 'predicciones': forecast.tolist()}
 
     # predicciones
-    train_size = int(len(df) * 1.00)
+    train_size = int(len(df) * 1)
     train_data = df[:train_size]
     test_data = df[train_size:]
     end_date = train_data.index[-1] 
@@ -43,11 +43,12 @@ def predicciones_moneda(days):
         'predicciones': predictions.tolist(),
     }
 
-    # Combina las listas correspondientes usando zip
     for key in result_dict:
         result_dict[key] += predictions_dict[key]
 
-    result_json = json.dumps(result_dict)
+    # Combina las listas correspondientes usando zip
+    result_list = [{"vigenciadesde": date, "valor": value} for date, value in zip(result_dict['fechas'], result_dict['predicciones'])]
+    result_json = json.dumps(result_list)
     
     return result_json 
 
