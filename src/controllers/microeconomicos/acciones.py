@@ -24,30 +24,32 @@ def stock_historical(symbol):
   access_key = config('API_KEY_A1')
 
   url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={access_key}"
-
   response = requests.get(url)
   data = response.json()
-
   start_year = 2020
 
-  # Crear un nuevo diccionario para almacenar los datos filtrados
-  filtered_data = {
-      "Meta Data": data["Meta Data"],
-      "Monthly Time Series": {}
-  }
+  if 'Meta Data' in data:
+
+    # Crear un nuevo diccionario para almacenar los datos filtrados
+    filtered_data = {
+        "Meta Data": data['Meta Data'],
+        "Monthly Time Series": {}
+    }
 
 
-  # Recorrer los datos mensuales y agregar solo aquellos a partir del año 2000
-  for date, values in data["Monthly Time Series"].items():
-      year = int(date.split('-')[0])
-      if year >= start_year:
-          filtered_data["Monthly Time Series"][date] = remove_numbers_and_spaces(values)
+    # Recorrer los datos mensuales y agregar solo aquellos a partir del año 2000
+    for date, values in data["Monthly Time Series"].items():
+        year = int(date.split('-')[0])
+        if year >= start_year:
+            filtered_data["Monthly Time Series"][date] = remove_numbers_and_spaces(values)
 
 
-  # Convertir el diccionario filtrado de nuevo a JSON
-  filtered_json = json.dumps(filtered_data, indent=2)
+    # Convertir el diccionario filtrado de nuevo a JSON
+    filtered_json = json.dumps(filtered_data, indent=2)
   
-  return filtered_json
+    return filtered_json
+  else: 
+      return data
 
 def stock_data(symbol):  
   symbol_to_find = symbol

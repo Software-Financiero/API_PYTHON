@@ -11,6 +11,7 @@ def predicciones_acciones(symbol):
     # Cargar tus datos históricos en un DataFrame de Pandas
     acciones_data = stock_historical(symbol)
     acciones_dict = json.loads(acciones_data)
+    
     monthly_data = acciones_dict["Monthly Time Series"]
     df = pd.DataFrame(monthly_data).transpose()
 

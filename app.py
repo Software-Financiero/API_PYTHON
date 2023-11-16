@@ -8,7 +8,7 @@ from src.worker.threands import update_data
 
 configuration = config['development']  
 app = init_app(configuration)
-CORS(app)
+CORS(app, origins="*")
 
 @app.route('/')
 def hello_world():
