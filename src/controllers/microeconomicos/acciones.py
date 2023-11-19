@@ -80,4 +80,5 @@ def stock_data(symbol):
       combined_info.update(symbol_info)
 
   combined_info.update(data_quotes)
-  return jsonify(combined_info)
+  combined_info_json = json.dumps(combined_info)
+  return combined_info_json
