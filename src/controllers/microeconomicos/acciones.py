@@ -21,18 +21,18 @@ def remove_numbers_and_spaces(d):
 
 def stock_historical(symbol):
 
-  access_key = config('API_KEY_A1')
+  access_key = config('API_KEY_A5')
 
   url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={access_key}"
   response = requests.get(url)
   data = response.json()
   start_year = 2020
 
-  if 'Meta Data' in data:
+  if "Meta Data" in data:
 
     # Crear un nuevo diccionario para almacenar los datos filtrados
     filtered_data = {
-        "Meta Data": data['Meta Data'],
+        "Meta Data": data["Meta Data"],
         "Monthly Time Series": {}
     }
 
@@ -45,7 +45,7 @@ def stock_historical(symbol):
 
 
     # Convertir el diccionario filtrado de nuevo a JSON
-    filtered_json = json.dumps(filtered_data, indent=2)
+    filtered_json = json.dumps(filtered_data)
   
     return filtered_json
   else: 

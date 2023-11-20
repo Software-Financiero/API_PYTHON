@@ -1,13 +1,13 @@
-# fly.toml app configuration file generated for api-python-weathered-dream-3802 on 2023-11-15T18:27:05-05:00
+# fly.toml app configuration file generated for api-python-2 on 2023-11-19T14:03:26-05:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "api-python-weathered-dream-3802"
+app = "api-python-2"
 primary_region = "bog"
 
 [build]
-  builder = "paketobuildpacks/builder:base"
+  dockerfile = "dockerfile"
 
 [env]
   PORT = "8080"
