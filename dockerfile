@@ -8,4 +8,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8080
 
-CMD ["gunicorn", "app:app","--reload"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8080", "--reload"]

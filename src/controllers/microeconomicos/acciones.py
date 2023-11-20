@@ -21,8 +21,8 @@ def remove_numbers_and_spaces(d):
 
 def stock_historical(symbol):
 
-  access_key = config('API_KEY_A5')
-
+  access_key = config('API_KEY_A2')
+  print(access_key)
   url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={access_key}"
   response = requests.get(url)
   data = response.json()
