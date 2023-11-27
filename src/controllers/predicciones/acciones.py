@@ -15,16 +15,12 @@ def predicciones_acciones(symbol):
             acciones_dict = json.loads(acciones_data)
             monthly_data = acciones_dict["Monthly Time Series"]
             df = pd.DataFrame(monthly_data).transpose()
-
             # Convertir índice a tipo de dato datetime
             df.index = pd.to_datetime(df.index)
-
             # Ordenar el DataFrame por fecha
             df = df.sort_index()
-
             # Convertir la columna '4. close' a tipo de dato numérico
             df['close'] = pd.to_numeric(df['close'], errors='coerce')
-
             # Rellenar valores nulos en '4. close' con 0
             df['close'].fillna(0, inplace=True)
 

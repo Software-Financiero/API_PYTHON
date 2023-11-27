@@ -6,7 +6,7 @@ def market_list():
 
   access_key = config('API_KEY_A4')
 
-  url = f"https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey={access_key}"
+  url = f"https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
 
   response = requests.get(url)
   data = response.json()
@@ -21,9 +21,9 @@ def remove_numbers_and_spaces(d):
 
 def stock_historical(symbol):
 
-  access_key = config('API_KEY_A2')
-  print(access_key)
-  url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={access_key}"
+  access_key = config('API_KEY_A6')
+  
+  url = f"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey=demo"
   response = requests.get(url)
   data = response.json()
   start_year = 2020
@@ -58,13 +58,13 @@ def stock_data(symbol):
 
   access_key = config('API_KEY_A2')
 
-  url_info = f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={symbol}&apikey={access_key}"
+  url_info = f"https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={symbol}&apikey=demo"
   
   response_info = requests.get(url_info)
   data_info = response_info.json()
   
   access_key2 = config('API_KEY_A3')
-  url_quotes = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey={access_key2}"
+  url_quotes = f"https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={symbol}&apikey=demo"
 
   response_quotes = requests.get(url_quotes)
   data_quotes = response_quotes.json()
